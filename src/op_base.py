@@ -1,11 +1,12 @@
 import numpy as np
 
 # OPERACIONES BASE PARA TODO EL PROYECTO
+# RECORDAR RE-CHECKEAR CADA FUNCION EN MI LIBRETA DE APUNTES
 
 def wrap_angle(a):
         """Establecer angulo entre [-pi, pi).
         """
-        return (a + np.pi) % (2 * np.pi) - np.pi
+        return (a + np.pi) % (2*np.pi) - np.pi
 
 def pose_to_mat(p):
         """Una pose [x, y, theta] la vuelve matriz de
@@ -35,6 +36,29 @@ def transform_points(p, xy):
         """
         x, y, th = p    # El punto
         c, s = np.cos(th), np.sin(th)
-        return np.stack([x + c * xy[0] - s * xy[1],
-                         y + s * xy[0] + c * xy[1]])
+        return np.stack([x + c*xy[0] - s*xy[1],
+                         y + s*xy[0] + c*xy[1]])
 
+def _ab(w):
+        """Calcula los coeficientes a, b usados en la
+        matriz de curvatura (V) generada por omega (w).
+        """
+        if abs(w) < 1e-3:
+                return 1 - w**2 / 6, w / 2 - w**3 / 24
+        return np.sin(w) / w, (1 - np.cos(w)) / w
+
+def exp_map(xi):
+        vx, vy, w = xi
+        a, b = _ab(w)
+        return np.array([a*vx - b*vy,
+                         b*vx + a*vy, wrap_angle(w)])
+
+def log_map(p):
+        x, y, th = p
+        w = wrap_angle(th)
+        a, b = _ab(w)
+
+        d = a**2 + b**2
+        return np.array([(a*x + b*y) / d,
+                         (-b*x + a*y) / d, w])
+        
