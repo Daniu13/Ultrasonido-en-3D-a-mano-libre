@@ -55,8 +55,9 @@ def make_limb_phantom(size=0.12, dx=5e-5, seed=5):
         def seg_dist(p0, p1):
                 p0 = np.array(p0, np.float32)
                 d = np.array(p1, np.float32) - p0
-                t = np.clip((X - p0[0])*d[0]
-                            + (Y - p0[1]*d[1] / (d @ d), 0, 1))
+                t = np.clip(((X - p0[0]) * d[0] +
+                             (Y - p0[1]) * d[1]) / (d @ d),
+                             0, 1)
                 return np.hypot(X - (p0 + t*d[0]),
                 Y - (p0[1] + t*d[1]))
 
