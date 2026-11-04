@@ -7,15 +7,15 @@ GEL, SKIN, FAT, MUSCLE, FASCIA, CORTEX, MARROW, BLOOD, MASS = range(9)
 
 # (Z [MRayl], alpha [dB/(cm*MHz)], sigma_s)
 TISSUE_TABLE = {
-        GEL: {1.50, 0.00, 0.00},
-        SKIN: {1.99, 1.50, 0.60},
-        FAT: {1.38, 0.60, 0.20},
-        MUSCLE: {1.70, 1.00, 0.35},
-        FASCIA: {1.85, 1.00, 0.90},
-        CORTEX: {7.80, 20.0, 0.10},
-        MARROW: {1.50, 1.00, 0.15},
-        BLOOD: {1.65, 0.15, 0.02},
-        MASS: {1.75, 1.20, 0.90},
+        GEL: (1.50, 0.00, 0.00),
+        SKIN: (1.99, 1.50, 0.60),
+        FAT: (1.38, 0.60, 0.20),
+        MUSCLE: (1.70, 1.00, 0.35),
+        FASCIA: (1.85, 1.00, 0.90),
+        CORTEX: (7.80, 20.0, 0.10),
+        MARROW: (1.50, 1.00, 0.15),
+        BLOOD: (1.65, 0.15, 0.02),
+        MASS: (1.75, 1.20, 0.90),
 }
 GEL_LNZ = float(np.log(TISSUE_TABLE[GEL][0]))
 
