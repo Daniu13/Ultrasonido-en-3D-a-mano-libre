@@ -28,7 +28,7 @@ class ProbeModel:
                             self.half_fov, self.n_lines)
                 self.dphi = self.phi[1] - self.phi[0]
 
-                RR, PP = np.meshgrid(self.t, self.phi,
+                RR, PP = np.meshgrid(self.r, self.phi,
                                      indexing="ij")
 
                 self.xp = (RR*np.cos(PP)).astype(np.float32)
@@ -52,7 +52,7 @@ class ProbeModel:
                 X, Y = np.meshgrid(xs, ys, indexing="ij")
 
                 rho, phi = np.hypot(X, Y), np.arctan2(Y, X)
-                self.map_x = ((phi + h) / self.phi).astype(np.float32)
+                self.map_x = ((phi + h) / self.dphi).astype(np.float32)
                 self.map_y = ((rho - self.R_c) / self.dr).astype(np.float32)
                 self.fan_mask = ((rho >= self.R_c)
                             & (rho <= self.r_max)
